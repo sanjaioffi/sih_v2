@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:sih_v2/features/theme/build_theme.dart';
+import 'package:sih_v2/features/ui/home/home.dart';
 import 'package:sih_v2/firebase_options.dart';
 import 'package:sih_v2/test.dart';
 
@@ -17,26 +19,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'SIH V2',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-              fixedSize: Size(MediaQuery.of(context).size.width - 30, 60),
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.deepPurple, // Set the text color
-              elevation: 5, // Set the button's elevation
-              padding: const EdgeInsets.all(16.0), // Set the button's padding
-              textStyle: const TextStyle(
-                fontFamily: 'poppins',
-                fontSize: 17.0, // Set the text size
-              ),
-            ),
-          ),
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-          fontFamily: 'poppins',
-        ),
-        home: const MapSample());
+      debugShowCheckedModeBanner: false,
+      theme: buidAppTheme(context),
+      home: const HomeScreen(),
+    );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sih_v2/features/ui/trip/trip.dart';
+import 'package:sih_v2/test.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,9 +12,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   // Mapping of all the main screens
   final pages = [
-    const Scaffold(),
-    const Scaffold(),
+    const Scaffold(backgroundColor: Colors.blueGrey),
     const TripScreen(),
+    const MapSample(),
     const Scaffold(),
   ];
 

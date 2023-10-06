@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_v2/features/ui/location_selector/location_selector.dart';
 import 'package:sih_v2/firebase_options.dart';
+import 'package:sih_v2/test.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +38,6 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           fontFamily: 'poppins',
         ),
-        home: LocationSelector());
+        home: MapSample());
   }
 }

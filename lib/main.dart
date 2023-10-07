@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:sih_v2/features/theme/build_theme.dart';
 import 'package:sih_v2/features/ui/home/home.dart';
 import 'package:sih_v2/firebase_options.dart';
-import 'package:sih_v2/test.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

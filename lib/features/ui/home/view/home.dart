@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sih_v2/features/ui/trip/trip.dart';
+import 'package:sih_v2/features/ui/home/view/agency_page.dart';
+import 'package:sih_v2/features/ui/trip/view/corridor_home.dart';
 import 'package:sih_v2/test.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,8 +13,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   // Mapping of all the main screens
   final pages = [
-    const Scaffold(backgroundColor: Colors.blueGrey),
-    const TripScreen(),
+    const AgencyPage(),
+    const CorridorHome(),
     const MapSample(),
     const Scaffold(),
   ];

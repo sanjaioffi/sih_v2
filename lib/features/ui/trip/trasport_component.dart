@@ -1,5 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sih_v2/features/functions/functions.dart';
 import 'package:sih_v2/features/theme/span_styles.dart';
+import 'package:sih_v2/features/ui/map/dynamic_map.dart';
 
 class TransportPlanComponent extends StatelessWidget {
   const TransportPlanComponent({
@@ -63,7 +68,8 @@ class _CustomSteperWidgetState extends State<CustomSteperWidget> {
         return const SizedBox();
       },
       physics: const BouncingScrollPhysics(),
-      onStepTapped: (value) {
+      onStepTapped: (value) async {
+        // await getRotes();
         setState(() {
           stepperIndex = value;
         });
@@ -79,6 +85,11 @@ class _CustomSteperWidgetState extends State<CustomSteperWidget> {
               Container(
                 height: 300,
                 color: Colors.grey.withOpacity(.2),
+                child: const DynamicMap(
+                  source: LatLng(11.535954, 79.469407),
+                  destination: LatLng(13.083712, 80.294206),
+                  centerPosition: LatLng(13.074661, 80.026229),
+                ),
               ),
               const SizedBox(height: 10),
               const Text(

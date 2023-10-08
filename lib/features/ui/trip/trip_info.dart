@@ -10,11 +10,12 @@ class TripInfoTopBar extends StatelessWidget {
     return Row(
       children: [
         IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            )),
+          onPressed: () {},
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+        ),
         const Padding(
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           child: Column(
@@ -28,6 +29,7 @@ class TripInfoTopBar extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              SizedBox(height: 8),
               Row(
                 children: [
                   Text(

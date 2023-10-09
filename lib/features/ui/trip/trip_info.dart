@@ -22,14 +22,14 @@ class TripInfoTopBar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Choose Your Round Trip",
+                "Trip Details",
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 8),
+              SizedBox(height: 5),
               Row(
                 children: [
                   Text(

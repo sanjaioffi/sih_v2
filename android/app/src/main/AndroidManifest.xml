@@ -1,4 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:label="sih_v2"
         android:name="${applicationName}"
@@ -33,6 +35,5 @@
             />
                     <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyDW5yeFZjxFIaYkjb-ZlcE5SpSjt4z7u8g"/>
-    <uses-permission android:name="android.permission.INTERNET" />
     </application>
 </manifest>

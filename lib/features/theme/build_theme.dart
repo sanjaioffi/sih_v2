@@ -8,8 +8,7 @@ ThemeData buidAppTheme(BuildContext context) {
       iconColor: Color.fromRGBO(20, 28, 39, 1),
     ),
     expansionTileTheme: const ExpansionTileThemeData(
-      // collapsedIconColor: Colors.black,
-      // iconColor: Color.fromRGBO(20, 28, 39, 1),
+      childrenPadding: EdgeInsets.all(0),
       tilePadding: EdgeInsets.symmetric(vertical: 2, horizontal: 8),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(

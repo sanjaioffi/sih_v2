@@ -2,8 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sih_v2/features/theme/build_theme.dart';
-import 'package:sih_v2/features/ui/home/home.dart';
-import 'package:sih_v2/features/ui/track/stepper_page.dart';
 import 'package:sih_v2/features/ui/track/tracking_page.dart';
 import 'package:sih_v2/firebase_options.dart';
 

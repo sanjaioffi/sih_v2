@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sih_v2/features/theme/build_theme.dart';
 import 'package:sih_v2/features/ui/home/home.dart';
+import 'package:sih_v2/features/ui/track/stepper_page.dart';
+import 'package:sih_v2/features/ui/track/tracking_page.dart';
 import 'package:sih_v2/firebase_options.dart';
 
 Future<void> main() async {
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: buildAppTheme(context),
-        home: const HomeScreen(),
+        home: const TrackingPage(),
       ),
     );
   }

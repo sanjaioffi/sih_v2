@@ -1,361 +1,350 @@
-import 'dart:async';
-import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-
-class AppColors {
-  static const Color contentColorWhite = Color(0xFFFFFFFF);
-  static const Color contentColorBlack = Color(0xFF000000);
-  static const Color contentColorGreen = Color(0xFF00BFA6);
-  static const Color contentColorPurple = Color(0xFF6200EE);
-  static const Color contentColorYellow = Color(0xFFFFD600);
-  static const Color contentColorBlue = Color(0xFF2962FF);
-  static const Color contentColorOrange = Color(0xFFFF6D00);
-  static const Color contentColorPink = Color(0xFFD500F9);
-  static const Color contentColorRed = Color(0xFFD50000);
-}
 
 class BarChartWidget extends StatefulWidget {
   BarChartWidget({super.key});
 
-  List<Color> get availableColors => const <Color>[
-        AppColors.contentColorPurple,
-        AppColors.contentColorYellow,
-        AppColors.contentColorBlue,
-        AppColors.contentColorOrange,
-        AppColors.contentColorPink,
-        AppColors.contentColorRed,
-      ];
-
-  final Color barBackgroundColor = AppColors.contentColorWhite
-      .withOpacity(0.3)
-      .withRed(150)
-      .withGreen(150)
-      .withBlue(150);
-  final Color barColor = AppColors.contentColorWhite;
-  final Color touchedBarColor = Colors.deepPurple;
+  final Color dark = Colors.blueAccent;
+  final Color normal = Colors.blueAccent.shade200;
+  final Color light = Colors.blueAccent.shade100;
 
   @override
   State<StatefulWidget> createState() => BarChartWidgetState();
 }
 
 class BarChartWidgetState extends State<BarChartWidget> {
-  final Duration animDuration = const Duration(milliseconds: 250);
-
-  int touchedIndex = -1;
-
-  bool isPlaying = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1,
-      child: Stack(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 3),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Expanded(
-                  child: BarChart(
-                    mainBarData(),
-                    swapAnimationDuration: animDuration,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  BarChartGroupData makeGroupData(
-    int x,
-    double y, {
-    bool isTouched = false,
-    Color? barColor,
-    double width = 22,
-    List<int> showTooltips = const [],
-  }) {
-    barColor ??= widget.barColor;
-    return BarChartGroupData(
-      x: x,
-      barRods: [
-        BarChartRodData(
-          toY: isTouched ? y + 1 : y,
-          color: isTouched ? widget.touchedBarColor : barColor.withOpacity(0.8),
-          width: width,
-          borderSide: isTouched
-              ? BorderSide(color: widget.touchedBarColor.withOpacity(0.8))
-              : const BorderSide(color: Colors.white, width: 0),
-          backDrawRodData: BackgroundBarChartRodData(
-            show: true,
-            toY: 20,
-            color: widget.barBackgroundColor,
-          ),
-        ),
-      ],
-      showingTooltipIndicators: showTooltips,
-    );
-  }
-
-  List<BarChartGroupData> showingGroups() => List.generate(7, (i) {
-        switch (i) {
-          case 0:
-            return makeGroupData(0, 5, isTouched: i == touchedIndex);
-          case 1:
-            return makeGroupData(1, 6.5, isTouched: i == touchedIndex);
-          case 2:
-            return makeGroupData(2, 5, isTouched: i == touchedIndex);
-          case 3:
-            return makeGroupData(3, 7.5, isTouched: i == touchedIndex);
-          case 4:
-            return makeGroupData(4, 9, isTouched: i == touchedIndex);
-          case 5:
-            return makeGroupData(5, 11.5, isTouched: i == touchedIndex);
-          case 6:
-            return makeGroupData(6, 6.5, isTouched: i == touchedIndex);
-          default:
-            return throw Error();
-        }
-      });
-
-  BarChartData mainBarData() {
-    return BarChartData(
-      barTouchData: BarTouchData(
-        touchTooltipData: BarTouchTooltipData(
-          tooltipBgColor: Colors.blueGrey,
-          tooltipHorizontalAlignment: FLHorizontalAlignment.right,
-          tooltipMargin: -10,
-          getTooltipItem: (group, groupIndex, rod, rodIndex) {
-            String weekDay;
-            switch (group.x) {
-              case 0:
-                weekDay = 'Monday';
-                break;
-              case 1:
-                weekDay = 'Tuesday';
-                break;
-              case 2:
-                weekDay = 'Wednesday';
-                break;
-              case 3:
-                weekDay = 'Thursday';
-                break;
-              case 4:
-                weekDay = 'Friday';
-                break;
-              case 5:
-                weekDay = 'Saturday';
-                break;
-              case 6:
-                weekDay = 'Sunday';
-                break;
-              default:
-                throw Error();
-            }
-            return BarTooltipItem(
-              '$weekDay\n',
-              const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-              children: <TextSpan>[
-                TextSpan(
-                  text: (rod.toY - 1).toString(),
-                  style: TextStyle(
-                    color: widget.touchedBarColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
-        touchCallback: (FlTouchEvent event, barTouchResponse) {
-          setState(() {
-            if (!event.isInterestedForInteractions ||
-                barTouchResponse == null ||
-                barTouchResponse.spot == null) {
-              touchedIndex = -1;
-              return;
-            }
-            touchedIndex = barTouchResponse.spot!.touchedBarGroupIndex;
-          });
-        },
-      ),
-      titlesData: FlTitlesData(
-        show: true,
-        rightTitles: const AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-        topTitles: const AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            getTitlesWidget: getTitles,
-            reservedSize: 38,
-          ),
-        ),
-        leftTitles: const AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: false,
-          ),
-        ),
-      ),
-      borderData: FlBorderData(
-        show: false,
-      ),
-      barGroups: showingGroups(),
-      gridData: const FlGridData(show: false),
-    );
-  }
-
-  Widget getTitles(double value, TitleMeta meta) {
-    const style = TextStyle(
-      color: Colors.white,
-      fontWeight: FontWeight.bold,
-      fontSize: 14,
-    );
-    Widget text;
+  Widget bottomTitles(double value, TitleMeta meta) {
+    const style = TextStyle(fontSize: 10);
+    String text;
     switch (value.toInt()) {
       case 0:
-        text = const Text('M', style: style);
+        text = 'Apr';
         break;
       case 1:
-        text = const Text('T', style: style);
+        text = 'May';
         break;
       case 2:
-        text = const Text('W', style: style);
+        text = 'Jun';
         break;
       case 3:
-        text = const Text('T', style: style);
+        text = 'Jul';
         break;
       case 4:
-        text = const Text('F', style: style);
-        break;
-      case 5:
-        text = const Text('S', style: style);
-        break;
-      case 6:
-        text = const Text('S', style: style);
+        text = 'Aug';
         break;
       default:
-        text = const Text('', style: style);
+        text = '';
         break;
     }
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      space: 16,
-      child: text,
+      child: Text(text, style: style),
     );
   }
 
-  BarChartData randomData() {
-    return BarChartData(
-      barTouchData: BarTouchData(
-        enabled: false,
-      ),
-      titlesData: FlTitlesData(
-        show: true,
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            getTitlesWidget: getTitles,
-            reservedSize: 38,
-          ),
-        ),
-        leftTitles: const AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: false,
-          ),
-        ),
-        topTitles: const AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: false,
-          ),
-        ),
-        rightTitles: const AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: false,
-          ),
-        ),
-      ),
-      borderData: FlBorderData(
-        show: false,
-      ),
-      barGroups: List.generate(7, (i) {
-        switch (i) {
-          case 0:
-            return makeGroupData(
-              0,
-              Random().nextInt(15).toDouble() + 6,
-              barColor: widget.availableColors[
-                  Random().nextInt(widget.availableColors.length)],
-            );
-          case 1:
-            return makeGroupData(
-              1,
-              Random().nextInt(15).toDouble() + 6,
-              barColor: widget.availableColors[
-                  Random().nextInt(widget.availableColors.length)],
-            );
-          case 2:
-            return makeGroupData(
-              2,
-              Random().nextInt(15).toDouble() + 6,
-              barColor: widget.availableColors[
-                  Random().nextInt(widget.availableColors.length)],
-            );
-          case 3:
-            return makeGroupData(
-              3,
-              Random().nextInt(15).toDouble() + 6,
-              barColor: widget.availableColors[
-                  Random().nextInt(widget.availableColors.length)],
-            );
-          case 4:
-            return makeGroupData(
-              4,
-              Random().nextInt(15).toDouble() + 6,
-              barColor: widget.availableColors[
-                  Random().nextInt(widget.availableColors.length)],
-            );
-          case 5:
-            return makeGroupData(
-              5,
-              Random().nextInt(15).toDouble() + 6,
-              barColor: widget.availableColors[
-                  Random().nextInt(widget.availableColors.length)],
-            );
-          case 6:
-            return makeGroupData(
-              6,
-              Random().nextInt(15).toDouble() + 6,
-              barColor: widget.availableColors[
-                  Random().nextInt(widget.availableColors.length)],
-            );
-          default:
-            return throw Error();
-        }
-      }),
-      gridData: const FlGridData(show: false),
-    );
-  }
-
-  Future<dynamic> refreshState() async {
-    setState(() {});
-    await Future<dynamic>.delayed(
-      animDuration + const Duration(milliseconds: 50),
-    );
-    if (isPlaying) {
-      await refreshState();
+  Widget leftTitles(double value, TitleMeta meta) {
+    if (value == meta.max) {
+      return Container();
     }
+    const style = TextStyle(
+      fontSize: 10,
+    );
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      child: Text(
+        meta.formattedValue,
+        style: style,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AspectRatio(
+      aspectRatio: 1.66,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 16),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final barsSpace = 4.0 * constraints.maxWidth / 400;
+            final barsWidth = 8.0 * constraints.maxWidth / 400;
+            return BarChart(
+              BarChartData(
+                alignment: BarChartAlignment.center,
+                barTouchData: BarTouchData(
+                  enabled: false,
+                ),
+                titlesData: FlTitlesData(
+                  show: true,
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      reservedSize: 28,
+                      getTitlesWidget: bottomTitles,
+                    ),
+                  ),
+                  leftTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      reservedSize: 40,
+                      getTitlesWidget: leftTitles,
+                    ),
+                  ),
+                  topTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  rightTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                ),
+                gridData: FlGridData(
+                  show: true,
+                  checkToShowHorizontalLine: (value) => value % 10 == 0,
+                  getDrawingHorizontalLine: (value) => FlLine(
+                    color: Colors.black.withOpacity(0.1),
+                    strokeWidth: 1,
+                  ),
+                  drawVerticalLine: false,
+                ),
+                borderData: FlBorderData(
+                  show: false,
+                ),
+                groupsSpace: barsSpace,
+                barGroups: getData(barsWidth, barsSpace),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  List<BarChartGroupData> getData(double barsWidth, double barsSpace) {
+    return [
+      BarChartGroupData(
+        x: 0,
+        barsSpace: barsSpace,
+        barRods: [
+          BarChartRodData(
+            toY: 17000000000,
+            rodStackItems: [
+              BarChartRodStackItem(0, 2000000000, widget.dark),
+              BarChartRodStackItem(2000000000, 12000000000, widget.normal),
+              BarChartRodStackItem(12000000000, 17000000000, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+          BarChartRodData(
+            toY: 24000000000,
+            rodStackItems: [
+              BarChartRodStackItem(0, 13000000000, widget.dark),
+              BarChartRodStackItem(13000000000, 14000000000, widget.normal),
+              BarChartRodStackItem(14000000000, 24000000000, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+          BarChartRodData(
+            toY: 23000000000.5,
+            rodStackItems: [
+              BarChartRodStackItem(0, 6000000000.5, widget.dark),
+              BarChartRodStackItem(6000000000.5, 18000000000, widget.normal),
+              BarChartRodStackItem(18000000000, 23000000000.5, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+          BarChartRodData(
+            toY: 29000000000,
+            rodStackItems: [
+              BarChartRodStackItem(0, 9000000000, widget.dark),
+              BarChartRodStackItem(9000000000, 15000000000, widget.normal),
+              BarChartRodStackItem(15000000000, 29000000000, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+          BarChartRodData(
+            toY: 32000000000,
+            rodStackItems: [
+              BarChartRodStackItem(0, 2000000000.5, widget.dark),
+              BarChartRodStackItem(2000000000.5, 17000000000.5, widget.normal),
+              BarChartRodStackItem(17000000000.5, 32000000000, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+        ],
+      ),
+      BarChartGroupData(
+        x: 1,
+        barsSpace: barsSpace,
+        barRods: [
+          BarChartRodData(
+            toY: 31000000000,
+            rodStackItems: [
+              BarChartRodStackItem(0, 11000000000, widget.dark),
+              BarChartRodStackItem(11000000000, 18000000000, widget.normal),
+              BarChartRodStackItem(18000000000, 31000000000, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+          BarChartRodData(
+            toY: 35000000000,
+            rodStackItems: [
+              BarChartRodStackItem(0, 14000000000, widget.dark),
+              BarChartRodStackItem(14000000000, 27000000000, widget.normal),
+              BarChartRodStackItem(27000000000, 35000000000, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+          BarChartRodData(
+            toY: 31000000000,
+            rodStackItems: [
+              BarChartRodStackItem(0, 8000000000, widget.dark),
+              BarChartRodStackItem(8000000000, 24000000000, widget.normal),
+              BarChartRodStackItem(24000000000, 31000000000, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+          BarChartRodData(
+            toY: 15000000000,
+            rodStackItems: [
+              BarChartRodStackItem(0, 6000000000.5, widget.dark),
+              BarChartRodStackItem(6000000000.5, 12000000000.5, widget.normal),
+              BarChartRodStackItem(12000000000.5, 15000000000, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+          BarChartRodData(
+            toY: 17000000000,
+            rodStackItems: [
+              BarChartRodStackItem(0, 9000000000, widget.dark),
+              BarChartRodStackItem(9000000000, 15000000000, widget.normal),
+              BarChartRodStackItem(15000000000, 17000000000, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+        ],
+      ),
+      BarChartGroupData(
+        x: 2,
+        barsSpace: barsSpace,
+        barRods: [
+          BarChartRodData(
+            toY: 34000000000,
+            rodStackItems: [
+              BarChartRodStackItem(0, 6000000000, widget.dark),
+              BarChartRodStackItem(6000000000, 23000000000, widget.normal),
+              BarChartRodStackItem(23000000000, 34000000000, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+          BarChartRodData(
+            toY: 32000000000,
+            rodStackItems: [
+              BarChartRodStackItem(0, 7000000000, widget.dark),
+              BarChartRodStackItem(7000000000, 24000000000, widget.normal),
+              BarChartRodStackItem(24000000000, 32000000000, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+          BarChartRodData(
+            toY: 14000000000.5,
+            rodStackItems: [
+              BarChartRodStackItem(0, 1000000000.5, widget.dark),
+              BarChartRodStackItem(1000000000.5, 12000000000, widget.normal),
+              BarChartRodStackItem(12000000000, 14000000000.5, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+          BarChartRodData(
+            toY: 20000000000,
+            rodStackItems: [
+              BarChartRodStackItem(0, 4000000000, widget.dark),
+              BarChartRodStackItem(4000000000, 15000000000, widget.normal),
+              BarChartRodStackItem(15000000000, 20000000000, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+          BarChartRodData(
+            toY: 24000000000,
+            rodStackItems: [
+              BarChartRodStackItem(0, 4000000000, widget.dark),
+              BarChartRodStackItem(4000000000, 15000000000, widget.normal),
+              BarChartRodStackItem(15000000000, 24000000000, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+        ],
+      ),
+      BarChartGroupData(
+        x: 3,
+        barsSpace: barsSpace,
+        barRods: [
+          BarChartRodData(
+            toY: 14000000000,
+            rodStackItems: [
+              BarChartRodStackItem(0, 1000000000.5, widget.dark),
+              BarChartRodStackItem(1000000000.5, 12000000000, widget.normal),
+              BarChartRodStackItem(12000000000, 14000000000, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+          BarChartRodData(
+            toY: 27000000000,
+            rodStackItems: [
+              BarChartRodStackItem(0, 7000000000, widget.dark),
+              BarChartRodStackItem(7000000000, 25000000000, widget.normal),
+              BarChartRodStackItem(25000000000, 27000000000, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+          BarChartRodData(
+            toY: 29000000000,
+            rodStackItems: [
+              BarChartRodStackItem(0, 6000000000, widget.dark),
+              BarChartRodStackItem(6000000000, 23000000000, widget.normal),
+              BarChartRodStackItem(23000000000, 29000000000, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+          BarChartRodData(
+            toY: 16000000000.5,
+            rodStackItems: [
+              BarChartRodStackItem(0, 9000000000, widget.dark),
+              BarChartRodStackItem(9000000000, 15000000000, widget.normal),
+              BarChartRodStackItem(15000000000, 16000000000.5, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+          BarChartRodData(
+            toY: 15000000000,
+            rodStackItems: [
+              BarChartRodStackItem(0, 7000000000, widget.dark),
+              BarChartRodStackItem(7000000000, 12000000000.5, widget.normal),
+              BarChartRodStackItem(12000000000.5, 15000000000, widget.light),
+            ],
+            borderRadius: BorderRadius.zero,
+            width: barsWidth,
+          ),
+        ],
+      ),
+    ];
   }
 }

@@ -10,7 +10,9 @@ class Analytic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         leading: IconButton(
           onPressed: () {},
           splashRadius: 10.r,
@@ -39,15 +41,12 @@ class Analytic extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CircleAvatar(
-                // backgroundColor: Colors.grey[300],
-                // radius: 30.r,
-                child: Icon(
-                  Icons.person,
-                  color: Colors.black,
-                  size: 30.r,
-                ),
-              ),
+              Container(
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(30.w)),
+                  child: Image.asset(
+                    "assets/img/coal-ministry.jpg",
+                  )),
               const SizedBox(
                 height: 10,
               ),
@@ -79,17 +78,36 @@ class Analytic extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
-              chartBackground(BarChartWidget()),
-              Text(
-                "Other Data",
-                style: TextStyle(
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
-                ),
+              SizedBox(
+                height: 10.h,
               ),
-              chartBackground(const LineChartWidget()),
-              const PieChartWidget()
+              wholeChartContainer(
+                  "Chats",
+                  "1345",
+                  LineChartWidget(
+                    color: Colors.blue,
+                  ),
+                  "↑ 12.9% ",
+                  Colors.blue),
+              SizedBox(
+                height: 10.h,
+              ),
+              wholeChartContainer("Chats", "1345",
+                  LineChartWidget(color: Colors.red), "↓ 4.9% ", Colors.red),
+              SizedBox(
+                height: 10.h,
+              ),
+              wholeChartContainer(
+                  "Chats",
+                  "1345",
+                  const LineChartWidget(
+                    color: Colors.blue,
+                  ),
+                  "↑ 56.9% ",
+                  Colors.blue),
+              SizedBox(
+                height: 10.h,
+              ),
             ],
           ),
         ),
@@ -97,11 +115,78 @@ class Analytic extends StatelessWidget {
     );
   }
 
+  Container wholeChartContainer(
+      String title, value, Widget chart, String percent, Color color) {
+    return Container(
+      // width: 450.w,
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10.r),
+        border: Border.all(color: Colors.grey.shade300),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          chartColumnData(title, value, percent, color),
+          SizedBox(
+            height: 50.h,
+            width: 135.w,
+            child: chart,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Column chartColumnData(String title, value, percent, Color color) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 16.5.sp,
+            color: Colors.black,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        SizedBox(
+          height: 2.h,
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 28.sp,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        SizedBox(
+          height: 2.h,
+        ),
+        RichText(
+            text: TextSpan(children: [
+          TextSpan(
+              text: percent,
+              style: TextStyle(
+                  color: color, fontWeight: FontWeight.w600, fontSize: 15.sp)),
+          TextSpan(
+              text: " last Month",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 15.sp))
+        ]))
+      ],
+    );
+  }
+
   Container chartBackground(Widget child) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10.h),
       decoration: BoxDecoration(
-        color: Colors.deepPurple[600],
+        color: Colors.white,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(.5),

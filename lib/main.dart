@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: buidAppTheme(context),
+        theme: buildAppTheme(context),
         home: const HomeScreen(),
       ),
     );

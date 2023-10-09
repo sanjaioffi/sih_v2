@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-ThemeData buidAppTheme(BuildContext context) {
+ThemeData buildAppTheme(BuildContext context) {
   return ThemeData(
     dividerColor: Colors.transparent,
     listTileTheme: const ListTileThemeData(

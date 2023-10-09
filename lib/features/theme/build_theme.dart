@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 ThemeData buidAppTheme(BuildContext context) {
   return ThemeData(
+    iconButtonTheme: const IconButtonThemeData(
+        style: ButtonStyle(
+      backgroundColor: MaterialStatePropertyAll(Colors.blueAccent),
+    )),
     dividerColor: Colors.transparent,
     listTileTheme: const ListTileThemeData(
       contentPadding: EdgeInsets.all(2),

@@ -40,7 +40,7 @@ class CheckPointDetails extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         Text(
-          sourceLocation,
+          journeyModel.sourceLocationName,
           style: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w600,
@@ -49,9 +49,9 @@ class CheckPointDetails extends StatelessWidget {
         const SizedBox(height: 8),
         Row(
           children: [
-            isRoad ? const Text("20x ") : const SizedBox(),
+            journeyModel.isRoadWays ? const Text("20x ") : const SizedBox(),
             Icon(
-              isRoad
+              journeyModel.isRoadWays
                   ? Icons.local_shipping_outlined
                   : Icons.directions_boat_filled_rounded,
             ),
@@ -61,7 +61,7 @@ class CheckPointDetails extends StatelessWidget {
         Row(
           children: [
             Text(
-              destinationLocation,
+              journeyModel.destinationLocationName,
               style: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w600,

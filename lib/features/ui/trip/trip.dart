@@ -12,6 +12,7 @@ class TripScreen extends StatefulWidget {
 }
 
 class _TripScreenState extends State<TripScreen> {
+  final List<String> a = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

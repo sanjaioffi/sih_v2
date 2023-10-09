@@ -16,7 +16,6 @@ class TransportPlanComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Update It with a ListView.builder
     return Column(
       children: [
         ExpansionTile(
@@ -42,7 +41,7 @@ class TransportPlanComponent extends StatelessWidget {
           childrenPadding: const EdgeInsets.all(0),
           children: [
             CustomSteperWidget(
-              journeyModel: journeyModel,
+              journeyData: journeyModel,
             ),
           ],
         ),

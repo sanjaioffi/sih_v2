@@ -10,6 +10,11 @@ class TripInfoTopBar extends StatelessWidget {
     return Row(
       children: [
         IconButton(
+          style: const ButtonStyle(
+            backgroundColor: MaterialStatePropertyAll(
+              Colors.white,
+            ),
+          ),
           onPressed: () {},
           icon: const Icon(
             Icons.arrow_back,

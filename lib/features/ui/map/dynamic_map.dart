@@ -64,9 +64,7 @@ class _DynamicMapState extends State<DynamicMap> {
   void initState() {
     super.initState();
 
-    widget.isRoad
-        ? _getPolyline()
-        : const Polyline(polylineId: PolylineId("dewd"));
+    widget.isRoad ? _getPolyline() : null;
   }
 
   final Completer<GoogleMapController> _controller =
@@ -78,7 +76,32 @@ class _DynamicMapState extends State<DynamicMap> {
       compassEnabled: false,
       myLocationEnabled: false,
       zoomControlsEnabled: true,
-      polylines: Set<Polyline>.of(polylines.values),
+      polylines: widget.isRoad
+          ? Set<Polyline>.of(polylines.values)
+          : {
+              const Polyline(
+                color: Colors.blue,
+                zIndex: 9,
+                polylineId: PolylineId("dewd"),
+                points: <LatLng>[
+                  LatLng(13.101576, 80.304451),
+                  LatLng(14.313941, 81.432071),
+                  LatLng(15.699641, 81.813045),
+                  LatLng(17.393697, 84.510969),
+                  LatLng(19.181565, 85.676800),
+                  LatLng(20.037761, 86.549819),
+                  LatLng(20.273953, 86.679643),
+                ],
+                jointType: JointType.mitered,
+                patterns: [
+                  PatternItem.dot,
+                  PatternItem.dot,
+                  PatternItem.dot,
+                  PatternItem.dot,
+                ],
+                width: 2,
+              )
+            },
       markers: {
         Marker(
           markerId: const MarkerId("Source"),

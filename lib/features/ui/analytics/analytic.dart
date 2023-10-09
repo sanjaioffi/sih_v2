@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sih_v2/features/ui/analytics/widgets/bar_data.dart';
 import 'package:sih_v2/features/ui/analytics/widgets/linechart.dart';
-import 'package:sih_v2/features/ui/analytics/widgets/piechart.dart';
 
 class Analytic extends StatelessWidget {
   const Analytic({super.key});
@@ -84,7 +82,7 @@ class Analytic extends StatelessWidget {
               wholeChartContainer(
                   "Chats",
                   "1345",
-                  LineChartWidget(
+                  const LineChartWidget(
                     color: Colors.blue,
                   ),
                   "↑ 12.9% ",
@@ -93,7 +91,7 @@ class Analytic extends StatelessWidget {
                 height: 10.h,
               ),
               wholeChartContainer("Chats", "1345",
-                  LineChartWidget(color: Colors.red), "↓ 4.9% ", Colors.red),
+                  const LineChartWidget(color: Colors.red), "↓ 4.9% ", Colors.red),
               SizedBox(
                 height: 10.h,
               ),

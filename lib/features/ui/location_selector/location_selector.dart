@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class LocationSelector extends StatefulWidget {
+  const LocationSelector({super.key});
+
   @override
   _LocationSelectorState createState() => _LocationSelectorState();
 }
 
 class _LocationSelectorState extends State<LocationSelector> {
-  TextEditingController _startController = TextEditingController();
-  TextEditingController _endController = TextEditingController();
+  final TextEditingController _startController = TextEditingController();
+  final TextEditingController _endController = TextEditingController();
 
   final List<String> locations = [
     'Mumbai',

@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 
 ThemeData buildAppTheme(BuildContext context) {
   return ThemeData(
+    iconButtonTheme: const IconButtonThemeData(
+        style: ButtonStyle(
+      backgroundColor: MaterialStatePropertyAll(Colors.blueAccent),
+    )),
     dividerColor: Colors.transparent,
     listTileTheme: const ListTileThemeData(
       contentPadding: EdgeInsets.all(2),
       iconColor: Color.fromRGBO(20, 28, 39, 1),
     ),
     expansionTileTheme: const ExpansionTileThemeData(
-      // collapsedIconColor: Colors.black,
-      // iconColor: Color.fromRGBO(20, 28, 39, 1),
+      childrenPadding: EdgeInsets.all(0),
       tilePadding: EdgeInsets.symmetric(vertical: 2, horizontal: 8),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(

@@ -16,7 +16,6 @@ class _LocationSelectorState extends State<LocationSelector> {
     'Bangalore',
     'Chennai',
     'Kolkata',
-    // Add more locations here
   ];
 
   @override

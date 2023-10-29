@@ -1,10 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_v2/features/theme/build_theme.dart';
-import 'package:sih_v2/features/ui/home/home.dart';
-import 'package:sih_v2/features/ui/track/stepper_page.dart';
+import 'package:sih_v2/features/ui/QR/scan_qr.dart';
 import 'package:sih_v2/features/ui/track/tracking_page.dart';
+
 import 'package:sih_v2/firebase_options.dart';
+
+import 'features/ui/QR/transfer_package.dart';
+import 'features/ui/location_selector/location_selector.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +25,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: buidAppTheme(context),
-      home:  TrackingPage(),
+      home: TransferPackage(),
     );
   }
 }

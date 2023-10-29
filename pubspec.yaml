@@ -40,6 +40,10 @@ dependencies:
   fluttertoast: ^8.2.2
   google_maps_flutter: ^2.5.0
   http: ^1.1.0
+  contacts_service: ^0.6.3
+  permission_handler: ^11.0.1
+  flutter_barcode_scanner: ^2.0.0
+  qr_flutter: ^4.1.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

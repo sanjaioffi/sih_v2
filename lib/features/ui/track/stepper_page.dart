@@ -15,7 +15,7 @@ class _StepperPageState extends State<StepperPage> {
       padding: const EdgeInsets.all(16.0),
       child: SingleChildScrollView(
         child: OrderTracker(
-          current: 3,
+          current: 1,
           activeColor: Colors.green,
           inActiveColor: Colors.grey[300],
         ),

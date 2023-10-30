@@ -28,21 +28,22 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  fl_chart: ^0.63.0
-  flutter_screenutil: ^5.9.0
   cached_network_image: ^3.3.0
+  contacts_service: ^0.6.3
   cupertino_icons: ^1.0.2
+  custom_map_markers: ^0.0.2+1
   firebase_core: ^2.17.0
+  fl_chart: ^0.63.0
   flutter:
     sdk: flutter
+  flutter_barcode_scanner: ^2.0.0
   flutter_polyline_points: ^2.0.0
+  flutter_screenutil: ^5.9.0
   flutter_typeahead: ^4.8.0
   fluttertoast: ^8.2.2
   google_maps_flutter: ^2.5.0
   http: ^1.1.0
-  contacts_service: ^0.6.3
   permission_handler: ^11.0.1
-  flutter_barcode_scanner: ^2.0.0
   qr_flutter: ^4.1.0
 
 dev_dependencies:

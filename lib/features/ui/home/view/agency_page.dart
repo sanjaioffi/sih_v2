@@ -8,16 +8,16 @@ class AgencyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return const SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Header(),
-              const SizedBox(height: 15),
-              const CustomTitleWidget(titleContent: "All Coal Agencies"),
+              Header(),
+              SizedBox(height: 15),
+              CustomTitleWidget(titleContent: "All Coal Agencies"),
               Expanded(
                 child: AgencyList(),
               ),

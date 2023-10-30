@@ -15,7 +15,9 @@ class Analytic extends StatelessWidget {
         leading: IconButton(
           style: const ButtonStyle(
               backgroundColor: MaterialStatePropertyAll(Colors.transparent)),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           icon: const Icon(Icons.arrow_back),
         ),
         elevation: 1,

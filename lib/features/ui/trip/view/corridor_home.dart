@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sih_v2/features/ui/home/view/agency_page.dart';
+import 'package:sih_v2/features/ui/location_selector/location_selector.dart';
 import 'package:sih_v2/features/ui/trip/widgets/group_layout.dart';
 
 class CorridorHome extends StatelessWidget {
@@ -12,8 +12,12 @@ class CorridorHome extends StatelessWidget {
           elevation: 0,
           child: const Icon(Icons.add, color: Colors.black),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AgencyPage()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const LocationSelector(),
+              ),
+            );
           }),
       appBar: AppBar(
         elevation: 5,

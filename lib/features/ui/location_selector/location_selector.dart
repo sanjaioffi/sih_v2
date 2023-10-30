@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:sih_v2/features/ui/trip/trip.dart';
 
 class LocationSelector extends StatefulWidget {
   const LocationSelector({super.key});
 
   @override
-  _LocationSelectorState createState() => _LocationSelectorState();
+  State createState() => _LocationSelectorState();
 }
 
 class _LocationSelectorState extends State<LocationSelector> {
@@ -24,11 +25,12 @@ class _LocationSelectorState extends State<LocationSelector> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Select Locations'),
+        title: const Text('Fill Trip Details'),
+        centerTitle: true,
+        leading: null,
       ),
       body: SingleChildScrollView(
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const SizedBox(
               height: 30,
@@ -39,7 +41,7 @@ class _LocationSelectorState extends State<LocationSelector> {
                 textFieldConfiguration: TextFieldConfiguration(
                   controller: _startController,
                   decoration: const InputDecoration(
-                    labelText: 'Starting Location',
+                    labelText: 'Source Location',
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -60,24 +62,13 @@ class _LocationSelectorState extends State<LocationSelector> {
                 },
               ),
             ),
-            RotatedBox(
-                quarterTurns: 3,
-                child: CircleAvatar(
-                    backgroundColor: Colors.deepPurple.shade500,
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.compare_arrows_rounded,
-                        color: Colors.white,
-                      ),
-                    ))),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TypeAheadFormField<String>(
                 textFieldConfiguration: TextFieldConfiguration(
                   controller: _endController,
                   decoration: const InputDecoration(
-                    labelText: 'Ending Location',
+                    labelText: 'Destination Location',
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -99,16 +90,9 @@ class _LocationSelectorState extends State<LocationSelector> {
               ),
             ),
             const SizedBox(
-              height: 50,
+              height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text('Number of Tonnes to be transported',
-                    style: Theme.of(context).textTheme.titleMedium),
-              ),
-            ),
+            //
             const Padding(
               padding: EdgeInsets.all(16.0),
               child: TextField(
@@ -120,11 +104,20 @@ class _LocationSelectorState extends State<LocationSelector> {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 180,
             ),
             ElevatedButton(
-              onPressed: () {},
-              child: const Text('Create Route'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TripScreen(),
+                    ));
+              },
+              child: const Text('Let Aladdin Do his work'),
+            ),
+            const SizedBox(
+              height: 20,
             ),
           ],
         ),

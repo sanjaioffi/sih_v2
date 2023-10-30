@@ -78,7 +78,7 @@ class _TransferPackageState extends State<TransferPackage> {
       body: SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
-          child: Column(
+          child: const Column(
             children: [
               Flexible(flex: 2, child: LocationMap()),
             ],

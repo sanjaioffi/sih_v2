@@ -71,7 +71,7 @@ class Contestants extends StatefulWidget {
 
 class _ContestantsState extends State<Contestants> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext contexzt) {
     return ListTile(
       title: Text(widget.name, style: const TextStyle(fontSize: 20)),
       trailing: TrailingInfo(amount: widget.amount, percentage: widget.percentage),

@@ -81,7 +81,9 @@ class CheckPointDetails extends StatelessWidget {
             text: "via ",
             style: greyTextStyle,
             children: [
-              TextSpan(text: " NH47 ", style: boldBlackTextStyle),
+              TextSpan(
+                  text: " ${journeyModel.descriptionOfRoute} ",
+                  style: boldBlackTextStyle),
               TextSpan(text: "crossing ", style: greyTextStyle),
               TextSpan(text: "4x Toll", style: boldBlackTextStyle),
             ],

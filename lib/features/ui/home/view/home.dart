@@ -13,10 +13,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   // Mapping of all the main screens
-  final pages = [
-    const AgencyPage(),
-    const CorridorHome(),
-    const MapSample(),
+  final pages = const [
+    AgencyPage(),
+    CorridorHome(),
+    MapSample(),
     BidHomePage(),
   ];
 

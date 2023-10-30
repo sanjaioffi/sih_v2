@@ -10,24 +10,44 @@ class LocationSelector extends StatefulWidget {
 }
 
 class _LocationSelectorState extends State<LocationSelector> {
+  DateTime selectedDate = DateTime.now();
+  TimeOfDay selectedTime = TimeOfDay.now();
+
+  Future<void> _selectDate(BuildContext context) async {
+    var picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2101),
+    );
+    if (picked != selectedDate) {
+      setState(() {
+        selectedDate = picked!;
+      });
+    }
+  }
+
   final TextEditingController _startController = TextEditingController();
   final TextEditingController _endController = TextEditingController();
 
   final List<String> locations = [
     'Mumbai',
+    'NeyVeli',
     'Delhi',
     'Bangalore',
     'Chennai',
     'Kolkata',
+    'Oddisha',
+    'Bhuvaneshwar',
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Fill Trip Details'),
+        title: const Text('Choose Trip Details'),
         centerTitle: true,
-        leading: null,
+        leading: const SizedBox(),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -37,56 +57,72 @@ class _LocationSelectorState extends State<LocationSelector> {
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: TypeAheadFormField<String>(
-                textFieldConfiguration: TextFieldConfiguration(
-                  controller: _startController,
-                  decoration: const InputDecoration(
-                    labelText: 'Source Location',
-                    border: OutlineInputBorder(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text("Source"),
+                  const SizedBox(height: 10),
+                  TypeAheadFormField<String>(
+                    textFieldConfiguration: TextFieldConfiguration(
+                      controller: _startController,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.local_shipping_outlined),
+                        hintText: 'Source Location',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    suggestionsCallback: (pattern) {
+                      return locations
+                          .where((location) => location
+                              .toLowerCase()
+                              .contains(pattern.toLowerCase()))
+                          .toList();
+                    },
+                    itemBuilder: (context, suggestion) {
+                      return ListTile(
+                        title: Text(suggestion),
+                      );
+                    },
+                    onSuggestionSelected: (suggestion) {
+                      _startController.text = suggestion;
+                    },
                   ),
-                ),
-                suggestionsCallback: (pattern) {
-                  return locations
-                      .where((location) => location
-                          .toLowerCase()
-                          .contains(pattern.toLowerCase()))
-                      .toList();
-                },
-                itemBuilder: (context, suggestion) {
-                  return ListTile(
-                    title: Text(suggestion),
-                  );
-                },
-                onSuggestionSelected: (suggestion) {
-                  _startController.text = suggestion;
-                },
+                ],
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: TypeAheadFormField<String>(
-                textFieldConfiguration: TextFieldConfiguration(
-                  controller: _endController,
-                  decoration: const InputDecoration(
-                    labelText: 'Destination Location',
-                    border: OutlineInputBorder(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text("Destination"),
+                  const SizedBox(height: 10),
+                  TypeAheadFormField<String>(
+                    textFieldConfiguration: TextFieldConfiguration(
+                      controller: _endController,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.local_shipping_outlined),
+                        hintText: 'Destination Location',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    suggestionsCallback: (pattern) {
+                      return locations
+                          .where((location) => location
+                              .toLowerCase()
+                              .contains(pattern.toLowerCase()))
+                          .toList();
+                    },
+                    itemBuilder: (context, suggestion) {
+                      return ListTile(
+                        title: Text(suggestion),
+                      );
+                    },
+                    onSuggestionSelected: (suggestion) {
+                      _endController.text = suggestion;
+                    },
                   ),
-                ),
-                suggestionsCallback: (pattern) {
-                  return locations
-                      .where((location) => location
-                          .toLowerCase()
-                          .contains(pattern.toLowerCase()))
-                      .toList();
-                },
-                itemBuilder: (context, suggestion) {
-                  return ListTile(
-                    title: Text(suggestion),
-                  );
-                },
-                onSuggestionSelected: (suggestion) {
-                  _endController.text = suggestion;
-                },
+                ],
               ),
             ),
             const SizedBox(
@@ -95,29 +131,61 @@ class _LocationSelectorState extends State<LocationSelector> {
             //
             const Padding(
               padding: EdgeInsets.all(16.0),
-              child: TextField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    labelText: 'Number of Tonnes',
-                    border: OutlineInputBorder(),
-                    suffix: Text('Tonnes')),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Quantity"),
+                  SizedBox(height: 10),
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.keyboard_command_key_outlined),
+                      hintText: 'No of Tonnes',
+                      border: OutlineInputBorder(),
+                      suffix: Text('Tonnes'),
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(
-              height: 180,
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: GestureDetector(
+                onTap: () {
+                  _selectDate(context);
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Departure Date"),
+                    const SizedBox(height: 15),
+                    Container(
+                      width: double.infinity,
+                      decoration:
+                          BoxDecoration(border: Border.all(color: Colors.grey)),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 15),
+                      child: Text(
+                        "${selectedDate.toLocal()}".split(' ')[0],
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
+            const SizedBox(height: 50),
             ElevatedButton(
+              style: const ButtonStyle(),
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const TripScreen(),
-                    ));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const TripScreen(),
+                  ),
+                );
               },
               child: const Text('Let Aladdin Do his work'),
-            ),
-            const SizedBox(
-              height: 20,
             ),
           ],
         ),

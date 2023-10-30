@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 
+final List<String> images = [
+  "https://yt3.googleusercontent.com/ytc/AOPolaSru16wvo8kcOFn0YDWN8fPrZ0UcLY5zYPMR8UZ=s900-c-k-c0x00ffffff-no-rj",
+  "https://nijuktikhabar.in/wp-content/uploads/2020/10/OCPL-Logo-1536x1536.png",
+  "https://cracku.in/latest-govt-jobs/wp-content/uploads/2019/12/coal-india-logo.png"
+];
+
+final List<String> names = [
+  "NLC Lignite Transport",
+  "Odisa Coal Transport",
+  "Jammu Coal Transport"
+];
+
+final List<String> bidid = ["1724", "8674", "2417"];
+
+final List<String> currentBid = ["₹32000", "₹15000", "₹50000"];
+
 class BidHomePage extends StatelessWidget {
-  BidHomePage({super.key});
-
-  List<String> images = [
-    "https://yt3.googleusercontent.com/ytc/AOPolaSru16wvo8kcOFn0YDWN8fPrZ0UcLY5zYPMR8UZ=s900-c-k-c0x00ffffff-no-rj",
-    "https://nijuktikhabar.in/wp-content/uploads/2020/10/OCPL-Logo-1536x1536.png",
-    "https://cracku.in/latest-govt-jobs/wp-content/uploads/2019/12/coal-india-logo.png"
-  ];
-
-  List<String> names = [
-    "NLC Lignite Transport",
-    "Odisa Coal Transport",
-    "Jammu Coal Transport"
-  ];
-
-  List<String> bidid = ["1724", "8674", "2417"];
-
-  List<String> currentBid = ["₹32000", "₹15000", "₹50000"];
+  const BidHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,11 +56,12 @@ class BidHomePage extends StatelessWidget {
             children: [
               const TextField(
                 decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.lightBlue)),
-                    labelText: 'Search for Bid',
-                    hintText: 'Enter the BidID'),
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.lightBlue)),
+                  labelText: 'Search for Bid',
+                  hintText: 'Enter the BidID',
+                ),
               ),
               const SizedBox(
                 height: 20,
@@ -114,8 +115,7 @@ class BidHomePage extends StatelessWidget {
                                     padding: const EdgeInsets.only(left: 5),
                                     decoration: BoxDecoration(
                                         color: Colors.black.withOpacity(0.3),
-                                        borderRadius:
-                                            BorderRadius.circular(5)),
+                                        borderRadius: BorderRadius.circular(5)),
                                     child: const Text("17h:33m:24s"),
                                   ),
                                 )

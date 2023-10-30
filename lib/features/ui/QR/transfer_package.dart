@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sih_v2/features/ui/QR/generate_qr.dart';
+// import 'package:sih_v2/features/ui/QR/generate_qr.dart';
 import 'package:sih_v2/features/ui/QR/scan_qr.dart';
 import 'package:sih_v2/features/ui/track/location_map.dart';
 
@@ -18,7 +18,7 @@ class _TransferPackageState extends State<TransferPackage> {
           title: const Text('Transfer Package'),
           actions: [
             IconButton(
-              icon: const Icon(Icons.qr_code_scanner),
+              icon: const Icon(Icons.qr_code),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -30,28 +30,25 @@ class _TransferPackageState extends State<TransferPackage> {
             )
           ],
         ),
-        body: SingleChildScrollView(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              children: [
-                Flexible(flex: 2, child: LocationMap()),
-                Flexible(
-                    flex: 1,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: const Text(
-                              'Scan QR Code to transfer the package to the next location',
-                              style: TextStyle(fontSize: 15)),
-                        ),
-                        GenerateQr(),
-                      ],
-                    ))
-              ],
-            ),
-          ),
-        ));
+        body: LocationMap(),);
   }
 }
+
+
+
+
+
+
+//  const Flexible(
+//                     flex: 1,
+//                     child: Column(
+//                       children: [
+//                         Padding(
+//                           padding:  EdgeInsets.all(8.0),
+//                           child:  Text(
+//                               'Scan QR Code to transfer the package to the next location',
+//                               style: TextStyle(fontSize: 15)),
+//                         ),
+//                         GenerateQr(),
+//                       ],
+//                     ))

@@ -5,10 +5,11 @@ ThemeData buildAppTheme(BuildContext context) {
     iconButtonTheme: const IconButtonThemeData(
         style: ButtonStyle(
       backgroundColor: MaterialStatePropertyAll(Colors.blueAccent),
+      iconColor: MaterialStatePropertyAll(Colors.white) ,
     )),
     dividerColor: Colors.transparent,
     listTileTheme: const ListTileThemeData(
-      contentPadding: EdgeInsets.all(2),
+      contentPadding: EdgeInsets.all(1),
       iconColor: Color.fromRGBO(20, 28, 39, 1),
     ),
     expansionTileTheme: const ExpansionTileThemeData(

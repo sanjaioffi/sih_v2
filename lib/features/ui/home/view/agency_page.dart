@@ -42,9 +42,10 @@ class Header extends StatelessWidget {
           children: [
             Icon(Icons.search, color: Colors.black),
             SizedBox(
-              width: 15,
+              width: 25,
             ),
             CircleAvatar(
+              radius: 15,
               backgroundColor: Colors.white,
               backgroundImage: NetworkImage(
                   "https://companieslogo.com/img/orig/NLCINDIA.NS-fdcb06f1.png?t=1604232066"),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sih_v2/features/ui/bidding/widgets/timer.dart';
 
 class BidHomePage extends StatelessWidget {
   BidHomePage({super.key});
@@ -23,10 +24,10 @@ class BidHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.notifications_rounded),
+        actions: const [
+          Icon(Icons.notifications_none_rounded, size: 25),
+          SizedBox(
+            width: 15,
           )
         ],
         title: const Column(
@@ -38,7 +39,7 @@ class BidHomePage extends StatelessWidget {
             ),
             Text(
               "Let's make a Bid!",
-              style: TextStyle(fontSize: 10),
+              style: TextStyle(fontSize: 13),
             )
           ],
         ),
@@ -91,127 +92,130 @@ class BidHomePage extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        color: Colors.white,
-                        height: 125,
-                        width: 300,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Stack(
-                              children: [
-                                SizedBox(
-                                  height: 300,
-                                  width: 300,
-                                  child: Image.network(images[index]),
-                                ),
-                                Positioned(
-                                  top: 10,
-                                  left: 10,
-                                  child: Container(
-                                    height: 25,
-                                    width: 100,
-                                    padding: const EdgeInsets.only(left: 5),
-                                    decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(0.3),
-                                        borderRadius:
-                                            BorderRadius.circular(5)),
-                                    child: const Text("17h:33m:24s"),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Material(
+                        elevation: 5,
+                        shadowColor: Colors.black38,
+                        child: Container(
+                          color: Colors.white,
+                          height: 125,
+                          width: 300,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Stack(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: Text(
-                                      names[index],
-                                      style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          const CircleAvatar(),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Text(
-                                                "BidID",
-                                                style: TextStyle(
-                                                    color: Colors.grey),
-                                              ),
-                                              Text(
-                                                bidid[index],
-                                                style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(width: 24),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            "Current Bid",
-                                            style:
-                                                TextStyle(color: Colors.grey),
-                                          ),
-                                          Text(
-                                            currentBid[index],
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
                                   SizedBox(
-                                    height: 50,
+                                    height: 300,
                                     width: 300,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          textStyle:
-                                              const TextStyle(fontSize: 17),
-                                          backgroundColor: Colors.black,
-                                          shape:
-                                              const RoundedRectangleBorder()),
-                                      onPressed: () {},
-                                      child: const Text(
-                                        "Place a Bid",
-                                        style: TextStyle(
-                                          color: Colors.white,
+                                    child: Image.network(images[index]),
+                                  ),
+                                  Positioned(
+                                    top: 10,
+                                    left: 10,
+                                    child: Container(
+                                      height: 35,
+                                      width: 100,
+                                      padding: const EdgeInsets.only(left: 5),
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(5)),
+                                      child: SecondsCounter(),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: Text(
+                                        names[index],
+                                        style: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 15,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            const CircleAvatar(),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                const Text(
+                                                  "BidID",
+                                                  style: TextStyle(
+                                                      color: Colors.grey),
+                                                ),
+                                                Text(
+                                                  bidid[index],
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(width: 24),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              "Maximum Bid",
+                                              style:
+                                                  TextStyle(color: Colors.grey),
+                                            ),
+                                            Text(
+                                              currentBid[index],
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    SizedBox(
+                                      height: 50,
+                                      width: 300,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            textStyle:
+                                                const TextStyle(fontSize: 17),
+                                            shape:
+                                                const RoundedRectangleBorder()),
+                                        onPressed: () {
+                                          
+                                        },
+                                        child: const Text(
+                                          "Place a Bid",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     );

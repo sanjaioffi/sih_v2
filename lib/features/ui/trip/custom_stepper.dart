@@ -29,9 +29,11 @@ class _CustomSteperWidgetState extends State<CustomSteperWidget> {
               onPressed: () {
                 stepperIndex == 0
                     ? showToast("No previous steps")
-                    : setState(() {
-                        stepperIndex--;
-                      });
+                    : setState(
+                        () {
+                          stepperIndex--;
+                        },
+                      );
               },
               icon: const Icon(Icons.arrow_upward),
             ),

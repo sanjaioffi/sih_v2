@@ -12,38 +12,56 @@ class TripScreen extends StatefulWidget {
 }
 
 class _TripScreenState extends State<TripScreen> {
-  final List<String> a = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(const Duration(seconds: 4), () {
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  final List<String> timings = ["3D:12 H", "1D:2 H"];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        forceMaterialTransparency: false,
-        scrolledUnderElevation: 0,
-        toolbarHeight: 80,
-        leadingWidth: MediaQuery.of(context).size.width,
-        leading: const TripInfoTopBar(),
-      ),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const CoalTransportDetails(),
-            Expanded(
-              child: ListView.builder(
-                itemCount: journeyModels.length,
-                itemBuilder: (context, index) {
-                  return TransportPlanComponent(
-                    routeNumber: index + 1,
-                    timeOfTravel: "29H 3Min",
-                    journeyModel: journeyModels[index],
-                  );
-                },
+    return !isLoading
+        ? Scaffold(
+            appBar: AppBar(
+              forceMaterialTransparency: false,
+              scrolledUnderElevation: 0,
+              toolbarHeight: 80,
+              leadingWidth: MediaQuery.of(context).size.width,
+              leading: const TripInfoTopBar(),
+            ),
+            body: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const CoalTransportDetails(),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: journeyModels.length,
+                      itemBuilder: (context, index) {
+                        return TransportPlanComponent(
+                          routeNumber: index + 1,
+                          timeOfTravel: timings[index],
+                          journeyModel: journeyModels[index],
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
+          )
+        : const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(), // Loading indicator
+            ),
+          );
   }
 }
-

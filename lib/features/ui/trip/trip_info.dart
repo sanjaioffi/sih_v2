@@ -15,7 +15,9 @@ class TripInfoTopBar extends StatelessWidget {
               Colors.white,
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           icon: const Icon(
             Icons.arrow_back,
             color: Colors.black,
@@ -46,7 +48,7 @@ class TripInfoTopBar extends StatelessWidget {
                     color: Colors.black,
                   ),
                   Text(
-                    "Oddisha",
+                    "Bhuvaneshvar",
                     style: TextStyle(color: Colors.green),
                   ),
                 ],

@@ -2,24 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:sih_v2/features/ui/bidding/view/bidding.dart';
 import 'package:sih_v2/features/ui/bidding/widgets/timer.dart';
 
+final List<String> images = [
+  "https://yt3.googleusercontent.com/ytc/AOPolaSru16wvo8kcOFn0YDWN8fPrZ0UcLY5zYPMR8UZ=s900-c-k-c0x00ffffff-no-rj",
+  "https://nijuktikhabar.in/wp-content/uploads/2020/10/OCPL-Logo-1536x1536.png",
+  "https://cracku.in/latest-govt-jobs/wp-content/uploads/2019/12/coal-india-logo.png"
+];
+
+final List<String> names = [
+  "NLC Lignite Transport",
+  "Odisa Coal Transport",
+  "Jammu Coal Transport"
+];
+
+final List<String> bidid = ["1724", "8674", "2417"];
+
+final List<String> currentBid = ["₹32000", "₹15000", "₹50000"];
+
 class BidHomePage extends StatelessWidget {
-  BidHomePage({super.key});
-
-  List<String> images = [
-    "https://yt3.googleusercontent.com/ytc/AOPolaSru16wvo8kcOFn0YDWN8fPrZ0UcLY5zYPMR8UZ=s900-c-k-c0x00ffffff-no-rj",
-    "https://nijuktikhabar.in/wp-content/uploads/2020/10/OCPL-Logo-1536x1536.png",
-    "https://cracku.in/latest-govt-jobs/wp-content/uploads/2019/12/coal-india-logo.png"
-  ];
-
-  List<String> names = [
-    "NLC Lignite Transport",
-    "Odisa Coal Transport",
-    "Jammu Coal Transport"
-  ];
-
-  List<String> bidid = ["1724", "8674", "2417"];
-
-  List<String> currentBid = ["₹32000", "₹15000", "₹50000"];
+  const BidHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -58,11 +58,12 @@ class BidHomePage extends StatelessWidget {
             children: [
               const TextField(
                 decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.lightBlue)),
-                    labelText: 'Search for Bid',
-                    hintText: 'Enter the BidID'),
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.lightBlue)),
+                  labelText: 'Search for Bid',
+                  hintText: 'Enter the BidID',
+                ),
               ),
               const SizedBox(
                 height: 20,
@@ -93,137 +94,126 @@ class BidHomePage extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Material(
-                        elevation: 5,
-                        shadowColor: Colors.black38,
-                        child: Container(
-                          color: Colors.white,
-                          height: 125,
-                          width: 300,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Stack(
-                                children: [
-                                  SizedBox(
-                                    height: 300,
-                                    width: 300,
-                                    child: Image.network(images[index]),
+                      child: Container(
+                        color: Colors.white,
+                        height: 125,
+                        width: 300,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Stack(
+                              children: [
+                                SizedBox(
+                                  height: 300,
+                                  width: 300,
+                                  child: Image.network(images[index]),
+                                ),
+                                Positioned(
+                                  top: 10,
+                                  left: 10,
+                                  child: Container(
+                                    height: 25,
+                                    width: 100,
+                                    padding: const EdgeInsets.only(left: 5),
+                                    decoration: BoxDecoration(
+                                        color: Colors.black.withOpacity(0.3),
+                                        borderRadius: BorderRadius.circular(5)),
+                                    child: const Text("17h:33m:24s"),
                                   ),
-                                  Positioned(
-                                    top: 10,
-                                    left: 10,
-                                    child: Container(
-                                      height: 35,
-                                      width: 100,
-                                      padding: const EdgeInsets.only(left: 5),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                      child: SecondsCounter(),
+                                )
+                              ],
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      names[index],
+                                      style: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                  )
+                                  ),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          const CircleAvatar(),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              const Text(
+                                                "BidID",
+                                                style: TextStyle(
+                                                    color: Colors.grey),
+                                              ),
+                                              Text(
+                                                bidid[index],
+                                                style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(width: 24),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "Current Bid",
+                                            style:
+                                                TextStyle(color: Colors.grey),
+                                          ),
+                                          Text(
+                                            currentBid[index],
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  SizedBox(
+                                    height: 50,
+                                    width: 300,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          textStyle:
+                                              const TextStyle(fontSize: 17),
+                                          backgroundColor: Colors.black,
+                                          shape:
+                                              const RoundedRectangleBorder()),
+                                      onPressed: () {},
+                                      child: const Text(
+                                        "Place a Bid",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
-                              Container(
-                                padding: const EdgeInsets.all(10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: Text(
-                                        names[index],
-                                        style: const TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            const CircleAvatar(),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                const Text(
-                                                  "BidID",
-                                                  style: TextStyle(
-                                                      color: Colors.grey),
-                                                ),
-                                                Text(
-                                                  bidid[index],
-                                                  style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                )
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(width: 24),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const Text(
-                                              "Maximum Bid",
-                                              style:
-                                                  TextStyle(color: Colors.grey),
-                                            ),
-                                            Text(
-                                              currentBid[index],
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    SizedBox(
-                                      height: 50,
-                                      width: 300,
-                                      child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                            elevation: 0,
-                                            textStyle:
-                                                const TextStyle(fontSize: 17),
-                                            shape:
-                                                const RoundedRectangleBorder()),
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    BiddingPage()),
-                                          );
-                                        },
-                                        child: const Text(
-                                          "Place a Bid",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     );

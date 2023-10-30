@@ -8,7 +8,9 @@ class GenerateQr extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
+      height: 300,
+      width: 300,
       child: QrImageView(
         data: qrData,
         version: QrVersions.auto,

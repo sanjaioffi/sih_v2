@@ -11,44 +11,80 @@ class TransferPackage extends StatefulWidget {
 }
 
 class _TransferPackageState extends State<TransferPackage> {
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(
+            'Scan Qr Code to transfer Live Sharing Controll.',
+            style: TextStyle(
+              fontSize: 18,
+            ),
+          ),
+          content: const GenerateQr(),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Transfer Package'),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.qr_code),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ScanQr(),
-                  ),
-                );
-              },
-            )
-          ],
+      appBar: AppBar(
+        title: const Text('Transfer Package'),
+        leading: IconButton(
+          style: const ButtonStyle(
+              backgroundColor: MaterialStatePropertyAll(Colors.transparent)),
+          onPressed: () {},
+          icon: const Icon(Icons.arrow_back),
         ),
-        body: LocationMap(),);
+        actions: [
+          IconButton(
+            style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.transparent)),
+            icon: const Icon(
+              Icons.qr_code,
+            ),
+            onPressed: () {
+              _showDialog(context);
+            },
+          ),
+          IconButton(
+            style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.transparent)),
+            icon: const Icon(
+              Icons.qr_code_scanner,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ScanQr(),
+                ),
+              );
+            },
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: const Column(
+            children: [
+              Flexible(flex: 2, child: LocationMap()),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
-
-
-
-
-
-
-//  const Flexible(
-//                     flex: 1,
-//                     child: Column(
-//                       children: [
-//                         Padding(
-//                           padding:  EdgeInsets.all(8.0),
-//                           child:  Text(
-//                               'Scan QR Code to transfer the package to the next location',
-//                               style: TextStyle(fontSize: 15)),
-//                         ),
-//                         GenerateQr(),
-//                       ],
-//                     ))

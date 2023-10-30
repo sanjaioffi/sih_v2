@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sih_v2/features/theme/build_theme.dart';
 import 'package:sih_v2/features/ui/home/view/home.dart';
+import 'package:sih_v2/features/ui/trip/test.dart';
+import 'package:sih_v2/features/ui/trip/trip.dart';
 import 'package:sih_v2/firebase_options.dart';
 
 Future<void> main() async {

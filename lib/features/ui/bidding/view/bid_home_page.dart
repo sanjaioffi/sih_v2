@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sih_v2/features/ui/bidding/view/bidding.dart';
 import 'package:sih_v2/features/ui/bidding/widgets/timer.dart';
 
 class BidHomePage extends StatelessWidget {
@@ -117,7 +118,8 @@ class BidHomePage extends StatelessWidget {
                                       width: 100,
                                       padding: const EdgeInsets.only(left: 5),
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(5)),
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
                                       child: SecondsCounter(),
                                     ),
                                   )
@@ -196,12 +198,18 @@ class BidHomePage extends StatelessWidget {
                                       width: 300,
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
+                                            elevation: 0,
                                             textStyle:
                                                 const TextStyle(fontSize: 17),
                                             shape:
                                                 const RoundedRectangleBorder()),
                                         onPressed: () {
-                                          
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    BiddingPage()),
+                                          );
                                         },
                                         child: const Text(
                                           "Place a Bid",

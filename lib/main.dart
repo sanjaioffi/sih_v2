@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sih_v2/features/theme/build_theme.dart';
 import 'package:sih_v2/features/ui/home/view/home.dart';
 import 'package:sih_v2/firebase_options.dart';
@@ -17,10 +18,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: buildAppTheme(context),
-      home: const HomeScreen (),
+    return ScreenUtilInit(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: buildAppTheme(context),
+        home: const HomeScreen(),
+      ),
     );
   }
 }
